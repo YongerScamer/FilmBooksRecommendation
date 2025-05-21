@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Recommendations - Books{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Рекомендации книг для вас</h1>
+<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+  {% for book in books %}
+  <div class="border rounded-lg p-4 shadow hover:shadow-md transition">
+    <h2 class="text-xl font-semibold">{{ book.bookTitle }}</h2>
+    <p class="text-sm text-gray-600">Автор: {{ book.bookAuthor }}</p>
+    <a href="{{ url_for('books.book_detail', book_id=book.id) }}" class="text-blue-600 hover:underline">Подробнее</a>
+  </div>
+  {% else %}
+    <p class="text-gray-500">Рекомендаций пока нет.</p>
+  {% endfor %}
+</div>
+{% endblock %}

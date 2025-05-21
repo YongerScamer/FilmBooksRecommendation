@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Избранные фильмы{% endblock %}
+{% block content %}
+<h1>Избранное</h1>
+<ul>
+  {% for movie in movies %}
+    <li>
+      <a href="{{ url_for('movies.movie_detail', movie_id=movie.movieId) }}">{{ movie.title }}</a>
+    </li>
+  {% else %}
+    <p>Пока нет избранных фильмов.</p>
+  {% endfor %}
+</ul>
+{% endblock %}

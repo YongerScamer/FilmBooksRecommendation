@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}{{ book.bookTitle }}{% endblock %}
+{% block content %}
+<h1>{{ book.bookTitle }}</h1>
+<p><strong>Автор:</strong> {{ book.bookAuthor }}</p>
+<p><strong>Год публикации:</strong> {{ book.yearOfPublication }}</p>
+<p><strong>Издательство:</strong> {{ book.publisher }}</p>
+<form action="{{ url_for('books.toggle_favorite', book_id=book.id) }}" method="post">
+  {{ fav_form.hidden_tag() }}
+  <button type="submit">{{ 'Удалить из избранного' if is_fav else 'Добавить в избранное' }}</button>
+</form>
+<hr>
+<h2>Оценки</h2>
+<p>Средняя оценка: {{ '%.2f'|format(avg_rating) if avg_rating else 'Нет оценок' }}</p>
+{% if current_user.is_authenticated %}
+  <form action="" method="post">
+    {{ rating_form.hidden_tag() }}
+    {{ rating_form.rating.label }} {{ rating_form.rating(value=user_rating) }}
+    {{ rating_form.submit() }}
+  </form>
+  {% if user_rating %}<p>Ваша оценка: {{ user_rating }}</p>{% endif %}
+{% else %}
+  <p><a href="{{ url_for('auth.login') }}">Войдите</a>, чтобы оценить книгу.</p>
+{% endif %}
+{% endblock %}

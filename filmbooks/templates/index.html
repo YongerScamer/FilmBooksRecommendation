@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Добро пожаловать{% endblock %}
+{% block content %}
+<div class="prose mx-auto">
+  <h1>Добро пожаловать в FilmBooks!</h1>
+  <p>Здесь вы можете:</p>
+  <ul>
+    <li>Искать книги и фильмы</li>
+    <li>Добавлять их в избранное</li>
+    <li>Ставить оценки от 1 до 10</li>
+    <li>Получать персональные рекомендации</li>
+  </ul>
+  <p>Начните с раздела <a href="{{ url_for('books.list_books') }}">Книги</a> или <a href="{{ url_for('movies.list_movies') }}">Фильмы</a>.</p>
+</div>
+{% endblock %}

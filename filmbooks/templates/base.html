@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}FilmBooks{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <nav class="bg-white shadow">
+    <div class="container mx-auto px-4 py-3 flex space-x-4">
+      <a href="{{ url_for('index') }}" class="text-blue-600 font-semibold">Home</a>
+      <a href="{{ url_for('books.list_books') }}" class="text-gray-700">Books</a>
+      <a href="{{ url_for('movies.list_movies') }}" class="text-gray-700">Movies</a>
+      <a href="{{ url_for('rec_bp.index') }}" class="text-gray-700">Recommendations</a>
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('auth.logout') }}" class="ml-auto text-red-600">Logout</a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}" class="ml-auto text-gray-700">Login</a>
+        <a href="{{ url_for('auth.register') }}" class="text-gray-700">Register</a>
+      {% endif %}
+    </div>
+  </nav>
+  <main class="container mx-auto px-4 py-6">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="space-y-2 mb-4">
+          {% for category, msg in messages %}
+            <div class="p-3 rounded {{ 'bg-green-100 text-green-800' if category=='success' else 'bg-red-100 text-red-800' }}">
+              {{ msg }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Избранные книги{% endblock %}
+{% block content %}
+<h1>Избранное</h1>
+<ul>
+  {% for book in books %}
+    <li>
+      <a href="{{ url_for('books.book_detail', book_id=book.id) }}">{{ book.bookTitle }} ({{ book.bookAuthor }})</a>
+    </li>
+  {% else %}
+    <p>Пока нет избранных книг.</p>
+  {% endfor %}
+</ul>
+{% endblock %}

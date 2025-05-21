@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Управление фильмами{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Список фильмов</h1>
+<a href="{{ url_for('movie_admin_bp.create_movie') }}" class="bg-green-600 text-white px-4 py-2 rounded mb-4 inline-block">Добавить фильм</a>
+<table class="min-w-full bg-white">
+  <thead>
+    <tr>
+      <th class="px-4 py-2">ID</th>
+      <th class="px-4 py-2">Название</th>
+      <th class="px-4 py-2">Жанры</th>
+      <th class="px-4 py-2">Действия</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for movie in movies %}
+    <tr class="hover:bg-gray-100">
+      <td class="border px-4 py-2">{{ movie.movieId }}</td>
+      <td class="border px-4 py-2">{{ movie.title }}</td>
+      <td class="border px-4 py-2">{{ movie.genres }}</td>
+      <td class="border px-4 py-2 space-x-2">
+        <a href="{{ url_for('movie_admin_bp.edit_movie', movie_id=movie.movieId) }}" class="text-yellow-600">Редактировать</a>
+        <form action="{{ url_for('movie_admin_bp.delete_movie', movie_id=movie.movieId) }}" method="post" class="inline">
+          {{ form.hidden_tag() }}
+          <button type="submit" class="text-red-600">Удалить</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

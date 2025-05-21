@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Recommendations - Movies{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Рекомендации фильмов для вас</h1>
+<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+  {% for movie in movies %}
+  <div class="border rounded-lg p-4 shadow hover:shadow-md transition">
+    <h2 class="text-xl font-semibold">{{ movie.title }}</h2>
+    <p class="text-sm text-gray-600">Жанры: {{ movie.genres }}</p>
+    <a href="{{ url_for('movies.movie_detail', movie_id=movie.movieId) }}" class="text-green-600 hover:underline">Подробнее</a>
+  </div>
+  {% else %}
+    <p class="text-gray-500">Рекомендаций пока нет.</p>
+  {% endfor %}
+</div>
+{% endblock %}
